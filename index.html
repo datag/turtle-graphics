@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Turtle Graphics</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <canvas id="simCanvas"></canvas>
+
+    <div>
+        <button id="moveForward" class="controls" title="Move forward">🠉</button>
+        <button id="moveBackward" class="controls" title="Move backward">🠋</button>
+        <button id="turnLeft90" class="controls" title="Turn left 90°">⭯</button>
+        <button id="turnRight90" class="controls" title="Turn right 90°">⭮</button>
+        <button id="turnLeft45" class="controls" title="Turn left 45°">↺</button>
+        <button id="turnRight45" class="controls" title="Turn right 45°">↻</button>
+        <hr>
+        <button id="reset">Reset</button>
+        <button id="replay">Replay</button>
+        <button id="koch">Kochsche Schneeflocke</button>
+    </div>
+
+    <script type="module">
+        import { TurtleGraphics, Turtle, Point } from './turtle.js';
+        import { Koch } from './koch.js';
+
+        const canvas = document.querySelector('#simCanvas');
+
+        const width = 800;
+        const height = 600;
+        const startPos = new Point(width / 2, height / 2);
+
+        const turtle = new Turtle(startPos, 0);
+
+        const sim = new TurtleGraphics(canvas, width, height, turtle);
+
+        sim.init();
+        sim.mainLoop(performance.now());
+
+        const distance = 10;
+        document.querySelector('#moveForward').addEventListener('click', () => sim.turtle.forward(distance));
+        document.querySelector('#moveBackward').addEventListener('click', () => sim.turtle.backward(distance));
+
+        document.querySelector('#turnLeft90').addEventListener('click', () => sim.turtle.left(90));
+        document.querySelector('#turnRight90').addEventListener('click', () => sim.turtle.right(90));
+        document.querySelector('#turnLeft45').addEventListener('click', () => sim.turtle.left(45));
+        document.querySelector('#turnRight45').addEventListener('click', () => sim.turtle.right(45));
+
+        document.querySelector('#reset').addEventListener('click', () => {
+            turtle.pos = startPos.clone();
+            turtle.angle = 0;
+            turtle.resetStates();
+
+            sim.init();
+        });
+
+        document.querySelector('#replay').addEventListener('click', () => {
+            sim.init();
+        });
+
+        document.querySelector('#koch').addEventListener('click', () => {
+            turtle.pos = new Point(250, 150);
+            turtle.angle = 0;
+            turtle.resetStates();
+
+            sim.init();
+
+            const koch = new Koch(sim);
+            koch.schneeflocke(3, 300, 3);
+        });
+    </script>
+  </body>
+</html>
