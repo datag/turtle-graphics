@@ -11,6 +11,10 @@ body {
     outline: solid 1px lightgray;
 }
 
+#controls {
+    margin: 20px;
+}
+
 button.controls {
     font-size: 30px;
     width: 50px;
