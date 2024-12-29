@@ -117,6 +117,20 @@ export class Turtle {
     pushState() {
         this.states.push(new TurtleState(this.pos, this.angle, this.pen));
     }
+
+    toLastState() {
+        this.stateIndex = this.states.length - 1;
+        this.lastStateTimestamp = performance.now();
+    }
+
+    /**
+     * @param {TurtleState} state
+     */
+    restoreState(state) {
+        this.pos = state.pos.clone();
+        this.angle = state.angle;
+        this.pen = state.pen.clone();
+    }
 }
 
 export class TurtleGraphics {
@@ -140,11 +154,12 @@ export class TurtleGraphics {
         /** @type {number} */
         this.lastRun = performance.now();
 
-        /** @type {any} */
+        /** @type {*} */
         this.debug = null;
 
         this.turtle.stateIndex = 0;
         this.turtle.lastStateTimestamp = this.lastRun;
+        this.turtle.restoreState(this.turtle.states[0]);
     }
 
     mainLoop(timestamp) {
@@ -165,9 +180,7 @@ export class TurtleGraphics {
     update(timestamp) {
         const turtle = this.turtle;
         if (this.turtle.stateIndex < turtle.states.length && timestamp - this.turtle.lastStateTimestamp > 75) {
-            this.turtle.pos = turtle.states[this.turtle.stateIndex].pos.clone();
-            this.turtle.angle = turtle.states[this.turtle.stateIndex].angle;
-            this.turtle.pen = turtle.states[this.turtle.stateIndex].pen.clone();
+            this.turtle.restoreState(turtle.states[this.turtle.stateIndex]);
 
             this.turtle.stateIndex++;
             this.turtle.lastStateTimestamp = timestamp;
