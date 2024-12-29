@@ -121,6 +121,8 @@ export class Turtle {
     toLastState() {
         this.stateIndex = this.states.length - 1;
         this.lastStateTimestamp = 0;
+
+        this.restoreState(this.states[this.stateIndex]);
     }
 
     /**

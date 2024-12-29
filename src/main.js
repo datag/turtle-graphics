@@ -47,40 +47,22 @@ function startExample() {
 
 const controlsDistance = 10;
 
-document.querySelector('#moveForward').addEventListener('click', () => {
-    sim.turtle.forward(controlsDistance);
+function manualInput(closure) {
     sim.turtle.toLastState();
-});
-document.querySelector('#moveBackward').addEventListener('click', () => {
-    sim.turtle.backward(controlsDistance);
+    closure();
     sim.turtle.toLastState();
-});
+}
 
-document.querySelector('#turnLeft90').addEventListener('click', () => {
-    sim.turtle.left(90);
-    sim.turtle.toLastState();
-});
-document.querySelector('#turnRight90').addEventListener('click', () => {
-    sim.turtle.right(90);
-    sim.turtle.toLastState();
-});
-document.querySelector('#turnLeft45').addEventListener('click', () => {
-    sim.turtle.left(45);
-    sim.turtle.toLastState();
-});
-document.querySelector('#turnRight45').addEventListener('click', () => {
-    sim.turtle.right(45);
-    sim.turtle.toLastState();
-});
+document.querySelector('#moveForward').addEventListener('click', () => manualInput(() => sim.turtle.forward(controlsDistance)));
+document.querySelector('#moveBackward').addEventListener('click', () => manualInput(() => sim.turtle.backward(controlsDistance)));
 
-document.querySelector('#penDown').addEventListener('click', () => {
-    sim.turtle.penDown();
-    sim.turtle.toLastState();
-});
-document.querySelector('#penUp').addEventListener('click', () => {
-    sim.turtle.penUp();
-    sim.turtle.toLastState();
-});
+document.querySelector('#turnLeft90').addEventListener('click', () => manualInput(() => sim.turtle.left(90)));
+document.querySelector('#turnRight90').addEventListener('click', () => manualInput(() => sim.turtle.right(90)));
+document.querySelector('#turnLeft45').addEventListener('click', () => manualInput(() => sim.turtle.left(45)));
+document.querySelector('#turnRight45').addEventListener('click', () => manualInput(() => sim.turtle.right(45)));
+
+document.querySelector('#penDown').addEventListener('click', () => manualInput(() => sim.turtle.penDown()));
+document.querySelector('#penUp').addEventListener('click', () => manualInput(() => sim.turtle.penUp()));
 
 window.addEventListener("keydown", (event) => {
     const turtle = sim.turtle;
@@ -91,26 +73,24 @@ window.addEventListener("keydown", (event) => {
 
     switch (event.key) {
         case 'ArrowUp':
-            turtle.forward(controlsDistance);
+            manualInput(() => turtle.forward(controlsDistance));
             break;
         case 'ArrowDown':
-            turtle.backward(controlsDistance);
+            manualInput(() => turtle.backward(controlsDistance));
             break;
         case 'ArrowLeft':
-            turtle.left(45);
+            manualInput(() => turtle.left(45));
             break;
         case 'ArrowRight':
-            turtle.right(45);
+            manualInput(() => turtle.right(45));
             break;
         case ' ':
-            turtle.penDown();
+            manualInput(() => turtle.penDown());
             break;
         case 'Escape':
-            turtle.penUp();
+            manualInput(() => turtle.penUp());
             break;
     }
-
-    turtle.toLastState();
 });
 
 document.querySelector('#reset').addEventListener('click', () => {
