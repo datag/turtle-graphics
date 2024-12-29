@@ -185,6 +185,9 @@ export class TurtleGraphics {
         this.turtle.stateIndex = 0;
         this.turtle.lastStateTimestamp = 0;
         this.turtle.restoreState(this.turtle.states[0]);
+
+        /** @type bool Whether there is one last state that still needs to be updated */
+        this.lastStateToRestore = false;
     }
 
     mainLoop(timestamp) {
@@ -207,11 +210,19 @@ export class TurtleGraphics {
 
         const msStateRenderWait = 500 * (1 - this.speed);
 
-        if (this.turtle.stateIndex < turtle.states.length && timestamp - this.turtle.lastStateTimestamp > msStateRenderWait) {
-            this.turtle.restoreState(turtle.states[this.turtle.stateIndex]);
+        if (timestamp - this.turtle.lastStateTimestamp > msStateRenderWait) {
+            if (this.turtle.stateIndex < turtle.states.length - 1) {
+                this.turtle.restoreState(turtle.states[this.turtle.stateIndex]);
 
-            this.turtle.stateIndex++;
-            this.turtle.lastStateTimestamp = timestamp;
+                this.turtle.stateIndex++;
+                this.turtle.lastStateTimestamp = timestamp;
+
+                this.lastStateToRestore = true;
+            } else if (this.lastStateToRestore) {
+                this.turtle.restoreState(turtle.states[this.turtle.stateIndex]);
+                this.turtle.lastStateTimestamp = timestamp;
+                this.lastStateToRestore = false;
+            }
         }
     }
 
@@ -312,7 +323,12 @@ export class TurtleGraphics {
         let prevState = turtle.states[0];
         let curState;
 
-        for (let i = 1; i < this.turtle.stateIndex; i++) {
+        for (let i = 1; i <= turtle.stateIndex; i++) {
+            if (i == turtle.stateIndex && this.lastStateToRestore) {
+                // We are still updating states, so don't render the last state yet
+                break;
+            }
+
             curState = turtle.states[i];
             if (curState.pen.down) {
                 c.beginPath();

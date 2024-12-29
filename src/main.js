@@ -48,7 +48,9 @@ function startExample() {
 const controlsDistance = 10;
 
 function manualInput(closure) {
-    sim.turtle.toLastState();
+    if (sim.turtle.stateIndex < sim.turtle.states.length - 1) {
+        sim.turtle.toLastState();
+    }
     closure();
     sim.turtle.toLastState();
 }
