@@ -22,9 +22,33 @@ sim.mainLoop(performance.now());
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-const distance = 10;
-document.querySelector('#moveForward').addEventListener('click', () => sim.turtle.forward(distance));
-document.querySelector('#moveBackward').addEventListener('click', () => sim.turtle.backward(distance));
+function getOption(name) {
+    switch (name) {
+        case 'skipAnimation':
+            return document.querySelector(`#${name}`).checked;
+        case 'speed':
+            return parseFloat(document.querySelector(`#${name}`).value);
+        default:
+            throw new Error(`Unknown option: ${name}`);
+    }
+}
+
+function startExample() {
+    sim.init();
+
+    sim.speed = getOption('speed');
+
+    if (getOption('skipAnimation')) {
+        sim.turtle.toLastState();
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+const controlsDistance = 10;
+
+document.querySelector('#moveForward').addEventListener('click', () => sim.turtle.forward(controlsDistance));
+document.querySelector('#moveBackward').addEventListener('click', () => sim.turtle.backward(controlsDistance));
 
 document.querySelector('#turnLeft90').addEventListener('click', () => sim.turtle.left(90));
 document.querySelector('#turnRight90').addEventListener('click', () => sim.turtle.right(90));
@@ -43,10 +67,10 @@ window.addEventListener("keydown", (event) => {
 
     switch (event.key) {
         case 'ArrowUp':
-            turtle.forward(distance);
+            turtle.forward(controlsDistance);
             break;
         case 'ArrowDown':
-            turtle.backward(distance);
+            turtle.backward(controlsDistance);
             break;
         case 'ArrowLeft':
             turtle.left(45);
@@ -79,17 +103,23 @@ document.querySelector('#replay').addEventListener('click', () => {
     sim.init();
 });
 
+document.querySelector('#skipAnimation').addEventListener('change', (e) => {
+    if (e.target.checked) {
+        sim.turtle.toLastState();
+    }
+});
+
+document.querySelector('#speed').addEventListener('input', () => {
+    sim.speed = getOption('speed');
+});
+
 document.querySelector('#koch').addEventListener('click', () => {
     sim.turtle = new Turtle(new Point(250, 250), 0, new Pen());
 
     const koch = new Koch(sim);
     koch.schneeflocke(3, 300, 3);
 
-    sim.init();
-
-    if (document.querySelector('#toLastState').checked) {
-        sim.turtle.toLastState();
-    }
+    startExample();
 });
 
 document.querySelector('#dragon').addEventListener('click', () => {
@@ -98,11 +128,7 @@ document.querySelector('#dragon').addEventListener('click', () => {
     const dragon = new Dragon(sim);
     dragon.dragon(5, 12, true);
 
-    sim.init();
-
-    if (document.querySelector('#toLastState').checked) {
-        sim.turtle.toLastState();
-    }
+    startExample();
 });
 
 document.querySelector('#tinker').addEventListener('click', () => {
@@ -113,7 +139,5 @@ document.querySelector('#tinker').addEventListener('click', () => {
 
     sim.init();
 
-    if (document.querySelector('#toLastState').checked) {
-        sim.turtle.toLastState();
-    }
+    startExample();
 });

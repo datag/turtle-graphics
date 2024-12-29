@@ -147,6 +147,9 @@ export class TurtleGraphics {
         /** @type {Turtle} */
         this.turtle = turtle;
 
+        /** @type {number} Value between 0 and 1 */
+        this.speed = .5;
+
         this.init();
     }
 
@@ -179,7 +182,10 @@ export class TurtleGraphics {
 
     update(timestamp) {
         const turtle = this.turtle;
-        if (this.turtle.stateIndex < turtle.states.length && timestamp - this.turtle.lastStateTimestamp > 75) {
+
+        const msStateRenderWait = 500 * (1 - this.speed);
+
+        if (this.turtle.stateIndex < turtle.states.length && timestamp - this.turtle.lastStateTimestamp > msStateRenderWait) {
             this.turtle.restoreState(turtle.states[this.turtle.stateIndex]);
 
             this.turtle.stateIndex++;
