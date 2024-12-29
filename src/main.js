@@ -47,16 +47,40 @@ function startExample() {
 
 const controlsDistance = 10;
 
-document.querySelector('#moveForward').addEventListener('click', () => sim.turtle.forward(controlsDistance));
-document.querySelector('#moveBackward').addEventListener('click', () => sim.turtle.backward(controlsDistance));
+document.querySelector('#moveForward').addEventListener('click', () => {
+    sim.turtle.forward(controlsDistance);
+    sim.turtle.toLastState();
+});
+document.querySelector('#moveBackward').addEventListener('click', () => {
+    sim.turtle.backward(controlsDistance);
+    sim.turtle.toLastState();
+});
 
-document.querySelector('#turnLeft90').addEventListener('click', () => sim.turtle.left(90));
-document.querySelector('#turnRight90').addEventListener('click', () => sim.turtle.right(90));
-document.querySelector('#turnLeft45').addEventListener('click', () => sim.turtle.left(45));
-document.querySelector('#turnRight45').addEventListener('click', () => sim.turtle.right(45));
+document.querySelector('#turnLeft90').addEventListener('click', () => {
+    sim.turtle.left(90);
+    sim.turtle.toLastState();
+});
+document.querySelector('#turnRight90').addEventListener('click', () => {
+    sim.turtle.right(90);
+    sim.turtle.toLastState();
+});
+document.querySelector('#turnLeft45').addEventListener('click', () => {
+    sim.turtle.left(45);
+    sim.turtle.toLastState();
+});
+document.querySelector('#turnRight45').addEventListener('click', () => {
+    sim.turtle.right(45);
+    sim.turtle.toLastState();
+});
 
-document.querySelector('#penDown').addEventListener('click', () => sim.turtle.penDown());
-document.querySelector('#penUp').addEventListener('click', () => sim.turtle.penUp());
+document.querySelector('#penDown').addEventListener('click', () => {
+    sim.turtle.penDown();
+    sim.turtle.toLastState();
+});
+document.querySelector('#penUp').addEventListener('click', () => {
+    sim.turtle.penUp();
+    sim.turtle.toLastState();
+});
 
 window.addEventListener("keydown", (event) => {
     const turtle = sim.turtle;
@@ -85,6 +109,8 @@ window.addEventListener("keydown", (event) => {
             turtle.penUp();
             break;
     }
+
+    turtle.toLastState();
 });
 
 document.querySelector('#reset').addEventListener('click', () => {

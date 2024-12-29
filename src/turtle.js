@@ -68,7 +68,7 @@ export class Turtle {
         this.stateIndex = 0;
 
         /** @type {number} */
-        this.lastStateTimestamp = performance.now();
+        this.lastStateTimestamp = 0;
     }
 
     forward(distance) {
@@ -120,7 +120,7 @@ export class Turtle {
 
     toLastState() {
         this.stateIndex = this.states.length - 1;
-        this.lastStateTimestamp = performance.now();
+        this.lastStateTimestamp = 0;
     }
 
     /**
@@ -161,7 +161,7 @@ export class TurtleGraphics {
         this.debug = null;
 
         this.turtle.stateIndex = 0;
-        this.turtle.lastStateTimestamp = this.lastRun;
+        this.turtle.lastStateTimestamp = 0;
         this.turtle.restoreState(this.turtle.states[0]);
     }
 
@@ -169,18 +169,18 @@ export class TurtleGraphics {
         const delta = (timestamp - this.lastRun) / 1000;
         const fps = 1 / delta;
 
-        this.handleInput();
-        this.update(timestamp);
-        this.render(fps);
+        this.#handleInput();
+        this.#update(timestamp);
+        this.#render(fps);
 
         this.lastRun = timestamp;
         requestAnimationFrame(this.mainLoop.bind(this));
     }
 
-    handleInput() {
+    #handleInput() {
     }
 
-    update(timestamp) {
+    #update(timestamp) {
         const turtle = this.turtle;
 
         const msStateRenderWait = 500 * (1 - this.speed);
@@ -193,20 +193,20 @@ export class TurtleGraphics {
         }
     }
 
-    render(fps) {
+    #render(fps) {
         const c = this.ctx;
 
         c.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.renderInfo(fps);
-        this.renderDebug();
+        this.#renderInfo(fps);
+        this.#renderDebug();
 
-        this.renderTurtle();
-        this.renderTurtleStates();
-        this.renderPen();
+        this.#renderTurtle();
+        this.#renderTurtleStates();
+        this.#renderPen();
     }
 
-    renderInfo(fps) {
+    #renderInfo(fps) {
         const c = this.ctx;
         let infoParts = [Math.floor(fps) + ' fps'];
 
@@ -221,7 +221,7 @@ export class TurtleGraphics {
         c.fillText(infoParts.join(' · '), 2, 12);
     }
 
-    renderDebug() {
+    #renderDebug() {
         const c = this.ctx;
 
         if (!this.debug) {
@@ -232,7 +232,7 @@ export class TurtleGraphics {
         c.fillText(JSON.stringify(this.debug), 2, 30);
     }
 
-    renderTurtle() {
+    #renderTurtle() {
         const c = this.ctx;
         const turtle = this.turtle;
 
@@ -277,7 +277,7 @@ export class TurtleGraphics {
         c.restore();
     }
 
-    renderTurtleStates() {
+    #renderTurtleStates() {
         const c = this.ctx;
         const turtle = this.turtle;
 
@@ -302,7 +302,7 @@ export class TurtleGraphics {
         c.restore();
     }
 
-    renderPen() {
+    #renderPen() {
         const c = this.ctx;
         const turtle = this.turtle;
 
