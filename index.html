@@ -10,21 +10,22 @@
     <canvas id="simCanvas"></canvas>
 
     <div id="controls">
-        <button id="moveForward" class="controls" title="Move forward">🠉</button>
-        <button id="moveBackward" class="controls" title="Move backward">🠋</button>
-        <button id="turnLeft90" class="controls" title="Turn left 90°">⭯</button>
-        <button id="turnRight90" class="controls" title="Turn right 90°">⭮</button>
-        <button id="turnLeft45" class="controls" title="Turn left 45°">↺</button>
-        <button id="turnRight45" class="controls" title="Turn right 45°">↻</button>
-        <button id="penDown" class="controls" title="Pen down">✎</button>
-        <button id="penUp" class="controls" title="Pen up" style="text-decoration: line-through;">✎</button>
+        <button id="moveForward" title="Move forward">🠉</button>
+        <button id="moveBackward" title="Move backward">🠋</button>
+        <button id="turnLeft90" title="Turn left 90°">⭯</button>
+        <button id="turnRight90" title="Turn right 90°">⭮</button>
+        <button id="turnLeft45" title="Turn left 45°">↺</button>
+        <button id="turnRight45" title="Turn right 45°">↻</button>
+        <button id="penDown" title="Pen down">✎</button>
+        <button id="penUp" title="Pen up" style="text-decoration: line-through;">✎</button>
     </div>
     <hr>
-    <div>
+    <div id="actions">
         <button id="reset">Reset</button>
         <button id="replay">Replay</button>
-        <button id="koch">Koch snowflake</button>
-        <button id="dragon">Dragon curve</button>
+        <button id="koch" class="example">Koch snowflake</button>
+        <button id="dragon" class="example">Dragon curve</button>
+        <label><input id="toLastState" type="checkbox" /> Skip animation</label>
     </div>
 
     <script type="module" src="/src/main.js"></script>

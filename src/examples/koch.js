@@ -8,6 +8,10 @@ export class Koch {
 
     static colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
 
+    /**
+     * @param {number} length Distance
+     * @param {*} d Iterations
+     */
     kochkurve(length, d) {
         const turtle = this.sim.turtle;
 
@@ -27,6 +31,11 @@ export class Koch {
         }
     }
 
+    /**
+     * @param {number} sides Number of sides
+     * @param {number} length Distance
+     * @param {number} d Iterations
+     */
     schneeflocke(sides, length, d) {
         const turtle = this.sim.turtle;
 

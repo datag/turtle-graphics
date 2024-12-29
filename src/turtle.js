@@ -185,12 +185,6 @@ export class TurtleGraphics {
             this.turtle.stateIndex++;
             this.turtle.lastStateTimestamp = timestamp;
         }
-
-        this.debug = {
-            stateIndex: this.turtle.stateIndex,
-            statesLength: this.turtle.states.length,
-            percentage: Math.round((this.turtle.stateIndex / this.turtle.states.length) * 100),
-        };
     }
 
     render(fps) {
@@ -198,7 +192,7 @@ export class TurtleGraphics {
 
         c.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.renderFps(fps);
+        this.renderInfo(fps);
         this.renderDebug();
 
         this.renderTurtle();
@@ -206,16 +200,27 @@ export class TurtleGraphics {
         this.renderPen();
     }
 
-    renderFps(fps) {
+    renderInfo(fps) {
         const c = this.ctx;
+        let infoParts = [Math.floor(fps) + ' fps'];
+
+        // Progress
+        if (this.turtle.stateIndex < this.turtle.states.length - 1) {
+            const progress = (this.turtle.stateIndex + 1) / this.turtle.states.length;
+            infoParts.push((progress * 100).toFixed(2) + '%');
+        }
 
         c.fillStyle = 'Gray';
         c.font = '0.75rem monospace';
-        c.fillText(Math.floor(fps) + ' fps', 2, 12);
+        c.fillText(infoParts.join(' · '), 2, 12);
     }
 
     renderDebug() {
         const c = this.ctx;
+
+        if (!this.debug) {
+            return;
+        }
 
         c.fillStyle = 'Red';
         c.fillText(JSON.stringify(this.debug), 2, 30);
@@ -237,14 +242,13 @@ export class TurtleGraphics {
 
         // Head
         c.beginPath();
-
         c.stroke();
         c.ellipse(turtle.radius, 0, turtle.radius * 0.5, turtle.radius * 0.3, 0, 0, 2 * Math.PI);
         c.strokeStyle = outlineColor;
         c.stroke();
         c.fillStyle = limbColor;
         c.fill();
-        c.closePath();
+
 
         // Feet
         c.strokeStyle = outlineColor;

@@ -79,31 +79,27 @@ document.querySelector('#replay').addEventListener('click', () => {
 });
 
 document.querySelector('#koch').addEventListener('click', () => {
-    const turtle = sim.turtle;
-
-    turtle.pos = new Point(250, 250);
-    turtle.angle = 0;
-    turtle.pen = new Pen();
-
-    turtle.resetStates();
+    sim.turtle = new Turtle(new Point(250, 250), 0, new Pen());
 
     const koch = new Koch(sim);
     koch.schneeflocke(3, 300, 3);
 
     sim.init();
+
+    if (document.querySelector('#toLastState').checked) {
+        sim.turtle.toLastState();
+    }
 });
 
 document.querySelector('#dragon').addEventListener('click', () => {
-    const turtle = sim.turtle;
-
-    turtle.pos = new Point(500, 250);
-    turtle.angle = 0;
-    turtle.pen = new Pen();
-
-    turtle.resetStates();
+    sim.turtle = new Turtle(new Point(500, 250), 0, new Pen());
 
     const dragon = new Dragon(sim);
-    dragon.dragon(5, 12, 1);
+    dragon.dragon(5, 12, true);
 
     sim.init();
+
+    if (document.querySelector('#toLastState').checked) {
+        sim.turtle.toLastState();
+    }
 });
