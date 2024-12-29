@@ -66,6 +66,17 @@ document.querySelector('#turnRight45').addEventListener('click', () => manualInp
 document.querySelector('#penDown').addEventListener('click', () => manualInput(() => sim.turtle.penDown()));
 document.querySelector('#penUp').addEventListener('click', () => manualInput(() => sim.turtle.penUp()));
 
+document.querySelector('#lineWidthSmaller').addEventListener('click', (e) => {
+    if (sim.turtle.pen.width <= 1) {
+        return;
+    }
+    sim.turtle.pen.width--;
+});
+
+document.querySelector('#lineWidthLarger').addEventListener('click', (e) => {
+    sim.turtle.pen.width++;
+});
+
 window.addEventListener("keydown", (event) => {
     const turtle = sim.turtle;
 

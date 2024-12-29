@@ -38,6 +38,10 @@ body {
         border-radius: 5px;
         background-color: #7fd8a3;
         cursor: pointer;
+
+        &#penUp {
+            text-decoration: line-through red;
+        }
     }
 }
 
