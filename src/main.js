@@ -77,6 +77,12 @@ document.querySelector('#lineWidthLarger').addEventListener('click', (e) => {
     sim.turtle.pen.width++;
 });
 
+document.querySelector('#controls').addEventListener('click', (e) => {
+    if (e.target.matches('button.color')) {
+        sim.turtle.pen.color = e.target.getAttribute('data-color');
+    }
+});
+
 window.addEventListener("keydown", (event) => {
     const turtle = sim.turtle;
 
