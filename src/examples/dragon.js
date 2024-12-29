@@ -1,5 +1,8 @@
+import { TurtleGraphics } from '../turtle.js';
+
 export class Dragon {
     constructor(sim) {
+        /** @type TurtleGraphics */
         this.sim = sim;
     }
 

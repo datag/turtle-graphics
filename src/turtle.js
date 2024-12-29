@@ -4,7 +4,10 @@ export function toRadians(degree) {
 
 export class Point {
     constructor(x, y) {
+        /** @type {number} */
         this.x = x;
+
+        /** @type {number} */
         this.y = y;
     }
 
@@ -15,8 +18,13 @@ export class Point {
 
 export class Pen {
     constructor(down = true, color = '#000', width = 1) {
+        /** @type {bool} */
         this.down = down;
+
+        /** @type {string | CanvasGradient | CanvasPattern} */
         this.color = color;
+
+        /** @type {number} */
         this.width = width;
     }
 
@@ -27,24 +35,39 @@ export class Pen {
 
 export class TurtleState {
     constructor(pos, angle, pen) {
+        /** @type {Point} */
         this.pos = pos.clone();
+
+        /** @type {number} */
         this.angle = angle;
+
+        /** @type {Pen} */
         this.pen = pen.clone();
     }
 }
 
 export class Turtle {
     constructor(pos, angle, pen) {
+        /** @type {Point} */
         this.pos = pos.clone();
+
+        /** @type {number} */
         this.angle = angle;
+
+        /** @type {Pen} */
         this.pen = pen.clone();
 
+        /** @type {number} */
         this.radius = 35;
 
+        /** @type {TurtleState[]} */
         this.states = [];
         this.pushState();
 
+        /** @type {number} */
         this.stateIndex = 0;
+
+        /** @type {number} */
         this.lastStateTimestamp = performance.now();
     }
 
@@ -98,19 +121,26 @@ export class Turtle {
 
 export class TurtleGraphics {
     constructor(canvas, width, height, turtle) {
+        /** @type {HTMLCanvasElement} */
         this.canvas = canvas;
+
         this.canvas.width = width;
         this.canvas.height = height;
 
+        /** @type {CanvasRenderingContext2D} */
         this.ctx = canvas.getContext('2d');
 
+        /** @type {Turtle} */
         this.turtle = turtle;
 
         this.init();
     }
 
     init() {
+        /** @type {number} */
         this.lastRun = performance.now();
+
+        /** @type {any} */
         this.debug = null;
 
         this.turtle.stateIndex = 0;
