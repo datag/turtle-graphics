@@ -1,6 +1,7 @@
 import './style.css';
 import { TurtleGraphics, Turtle, Pen, Point } from './turtle.js';
-import { Koch } from './koch.js';
+import { Koch } from './examples/koch.js';
+import { Dragon } from './examples/dragon.js';
 
 const canvas = document.querySelector('#simCanvas');
 
@@ -31,6 +32,35 @@ document.querySelector('#turnRight45').addEventListener('click', () => sim.turtl
 
 document.querySelector('#penDown').addEventListener('click', () => sim.turtle.penDown());
 document.querySelector('#penUp').addEventListener('click', () => sim.turtle.penUp());
+
+window.addEventListener("keydown", (event) => {
+    const turtle = sim.turtle;
+
+    if (event.repeat) {
+        return;
+    }
+
+    switch (event.key) {
+        case 'ArrowUp':
+            turtle.forward(distance);
+            break;
+        case 'ArrowDown':
+            turtle.backward(distance);
+            break;
+        case 'ArrowLeft':
+            turtle.left(45);
+            break;
+        case 'ArrowRight':
+            turtle.right(45);
+            break;
+        case ' ':
+            turtle.penDown();
+            break;
+        case 'Escape':
+            turtle.penUp();
+            break;
+    }
+});
 
 document.querySelector('#reset').addEventListener('click', () => {
     const turtle = sim.turtle;
@@ -63,31 +93,17 @@ document.querySelector('#koch').addEventListener('click', () => {
     sim.init();
 });
 
-window.addEventListener("keydown", (event) => {
+document.querySelector('#dragon').addEventListener('click', () => {
     const turtle = sim.turtle;
 
-    if (event.repeat) {
-        return;
-    }
+    turtle.pos = new Point(500, 250);
+    turtle.angle = 0;
+    turtle.pen = new Pen();
 
-    switch (event.key) {
-        case 'ArrowUp':
-            turtle.forward(distance);
-            break;
-        case 'ArrowDown':
-            turtle.backward(distance);
-            break;
-        case 'ArrowLeft':
-            turtle.left(45);
-            break;
-        case 'ArrowRight':
-            turtle.right(45);
-            break;
-        case ' ':
-            turtle.penDown();
-            break;
-        case 'Escape':
-            turtle.penUp();
-            break;
-    }
+    turtle.resetStates();
+
+    const dragon = new Dragon(sim);
+    dragon.dragon(5, 12, 1);
+
+    sim.init();
 });
