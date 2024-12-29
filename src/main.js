@@ -9,9 +9,11 @@ const height = 600;
 const startPos = new Point(width / 2, height / 2);
 const startAngle = 0;
 const startPen = new Pen(true, 'black', 1);
-const turtle = new Turtle(startPos, startAngle, startPen);
 
-const sim = new TurtleGraphics(canvas, width, height, turtle);
+const sim = new TurtleGraphics(
+    canvas, width, height,
+    new Turtle(startPos, startAngle, startPen),
+);
 
 sim.init();
 sim.mainLoop(performance.now());
@@ -31,6 +33,8 @@ document.querySelector('#penDown').addEventListener('click', () => sim.turtle.pe
 document.querySelector('#penUp').addEventListener('click', () => sim.turtle.penUp());
 
 document.querySelector('#reset').addEventListener('click', () => {
+    const turtle = sim.turtle;
+
     turtle.pos = startPos.clone();
     turtle.angle = startAngle;
     turtle.pen = startPen.clone();
@@ -45,6 +49,8 @@ document.querySelector('#replay').addEventListener('click', () => {
 });
 
 document.querySelector('#koch').addEventListener('click', () => {
+    const turtle = sim.turtle;
+
     turtle.pos = new Point(250, 250);
     turtle.angle = 0;
     turtle.pen = new Pen();
@@ -58,28 +64,30 @@ document.querySelector('#koch').addEventListener('click', () => {
 });
 
 window.addEventListener("keydown", (event) => {
+    const turtle = sim.turtle;
+
     if (event.repeat) {
         return;
     }
 
     switch (event.key) {
         case 'ArrowUp':
-            sim.turtle.forward(distance);
+            turtle.forward(distance);
             break;
         case 'ArrowDown':
-            sim.turtle.backward(distance);
+            turtle.backward(distance);
             break;
         case 'ArrowLeft':
-            sim.turtle.left(45);
+            turtle.left(45);
             break;
         case 'ArrowRight':
-            sim.turtle.right(45);
+            turtle.right(45);
             break;
         case ' ':
-            sim.turtle.penDown();
+            turtle.penDown();
             break;
         case 'Escape':
-            sim.turtle.penUp();
+            turtle.penUp();
             break;
     }
 });
