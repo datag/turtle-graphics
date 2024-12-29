@@ -298,6 +298,7 @@ export class TurtleGraphics {
                 c.lineTo(curState.pos.x, curState.pos.y);
                 c.strokeStyle = curState.pen.color;
                 c.lineWidth = curState.pen.width;
+                c.lineCap = curState.pen.width > 1 ? 'round' : 'butt';
                 c.stroke();
             }
             prevState = turtle.states[i];
