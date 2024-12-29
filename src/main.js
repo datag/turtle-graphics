@@ -90,6 +90,9 @@ window.addEventListener("keydown", (event) => {
         case 'Escape':
             manualInput(() => turtle.penUp());
             break;
+        case 'Backspace':
+            manualInput(() => turtle.popState());
+            break;
     }
 });
 
@@ -107,6 +110,10 @@ document.querySelector('#reset').addEventListener('click', () => {
 
 document.querySelector('#replay').addEventListener('click', () => {
     sim.init();
+});
+
+document.querySelector('#undo').addEventListener('click', () => {
+    manualInput(() => sim.turtle.popState());
 });
 
 document.querySelector('#skipAnimation').addEventListener('change', (e) => {

@@ -118,6 +118,26 @@ export class Turtle {
         this.states.push(new TurtleState(this.pos, this.angle, this.pen));
     }
 
+    /**
+     * @returns {TurtleState | null}
+     */
+    popState() {
+        // Keep initial state
+        if (this.states.length <= 1) {
+            return null;
+        }
+
+        const state = this.states.pop();
+        if (this.stateIndex >= this.states.length) {
+            this.stateIndex = this.states.length - 1;
+            this.lastStateTimestamp = 0;
+
+            this.restoreState(this.states[this.stateIndex]);
+        }
+
+        return state;
+    }
+
     toLastState() {
         this.stateIndex = this.states.length - 1;
         this.lastStateTimestamp = 0;
