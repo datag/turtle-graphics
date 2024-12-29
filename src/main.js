@@ -2,6 +2,7 @@ import './style.css';
 import { TurtleGraphics, Turtle, Pen, Point } from './turtle.js';
 import { Koch } from './examples/koch.js';
 import { Dragon } from './examples/dragon.js';
+import { Tinker } from './examples/tinker.js';
 
 const canvas = document.querySelector('#simCanvas');
 
@@ -96,6 +97,19 @@ document.querySelector('#dragon').addEventListener('click', () => {
 
     const dragon = new Dragon(sim);
     dragon.dragon(5, 12, true);
+
+    sim.init();
+
+    if (document.querySelector('#toLastState').checked) {
+        sim.turtle.toLastState();
+    }
+});
+
+document.querySelector('#tinker').addEventListener('click', () => {
+    sim.turtle = new Turtle(new Point(500, 200), startAngle, startPen);
+
+    const tinker = new Tinker(sim);
+    tinker.tinker();
 
     sim.init();
 
