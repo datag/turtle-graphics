@@ -239,7 +239,7 @@ export class TurtleGraphics {
         const bodyRatio = 0.8;
         const bodyColor = '#8e5f35';
         const limbColor = '#7caf22';
-        const outlineColor = '#666';
+        const outlineColor = '#333';
 
         c.save();
 
@@ -267,11 +267,15 @@ export class TurtleGraphics {
         });
 
         // Body on top
+        const radialGradient = c.createRadialGradient(0, 0, 0, 0, 0, turtle.radius);
+        radialGradient.addColorStop(0, limbColor);
+        radialGradient.addColorStop(1, bodyColor);
+
         c.beginPath();
         c.ellipse(0, 0, turtle.radius, turtle.radius * bodyRatio, 0, 0, 2 * Math.PI);
         c.strokeStyle = outlineColor;
         c.stroke();
-        c.fillStyle = bodyColor;
+        c.fillStyle = radialGradient;
         c.fill();
 
         c.restore();
