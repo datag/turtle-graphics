@@ -1,6 +1,19 @@
+/* region Reset */
+/* @see https://www.joshwcomeau.com/css/custom-css-reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 * {
     margin: 0;
 }
+
+input, button, select, textarea {
+    font: inherit;
+    color: inherit;
+}
+/* endregion */
+
 
 body {
     height: 100vh;
@@ -13,6 +26,8 @@ body {
 
 #controls {
     margin: 20px;
+    display: flex;
+    gap: 1ch;
 
     button {
         display: inline-block;
