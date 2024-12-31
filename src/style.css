@@ -25,11 +25,11 @@ body {
 }
 
 #controls {
-    margin: 20px;
+    margin: 10px 20px;
     display: flex;
     gap: 1ch;
 
-    button {
+    > button {
         display: inline-block;
         font-size: 30px;
         width: 50px;
@@ -46,9 +46,26 @@ body {
 }
 
 #actions {
-    margin: 10px 20px 20px 20px;
+    margin: 10px 20px;
+    display: flex;
+    gap: 1ch;
 
-    button {
+    > button {
+        display: inline-block;
+        font-size: 20px;
+        border: 1px solid darkgray;
+        border-radius: 5px;
+        background-color: lightgray;
+        cursor: pointer;
+    }
+}
+
+#examples {
+    margin: 10px 20px;
+    display: flex;
+    gap: 1ch;
+
+    > button {
         display: inline-block;
         font-size: 20px;
         border: 1px solid darkgray;
@@ -56,8 +73,6 @@ body {
         background-color: lightgray;
         cursor: pointer;
 
-        &.example {
-            background-color: lightblue;
-        }
+        background-color: lightblue;
     }
 }

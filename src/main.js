@@ -11,6 +11,7 @@ const height = 600;
 const startPos = new Point(width / 2, height / 2);
 const startAngle = 0;
 const startPen = new Pen(true, 'black', 1);
+const manualInputDistance = 10;
 
 const sim = new TurtleGraphics(
     canvas, width, height,
@@ -33,6 +34,14 @@ function getOption(name) {
     }
 }
 
+function manualInput(closure) {
+    if (sim.turtle.stateIndex < sim.turtle.states.length - 1) {
+        sim.turtle.toLastState();
+    }
+    closure();
+    sim.turtle.toLastState();
+}
+
 function startExample() {
     sim.init();
 
@@ -45,41 +54,44 @@ function startExample() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-const controlsDistance = 10;
+document.querySelector('#controls').addEventListener('click', (e) => {
+    /** @type {HTMLElement} */
+    const button = e.target;
 
-function manualInput(closure) {
-    if (sim.turtle.stateIndex < sim.turtle.states.length - 1) {
-        sim.turtle.toLastState();
-    }
-    closure();
-    sim.turtle.toLastState();
-}
-
-document.querySelector('#moveForward').addEventListener('click', () => manualInput(() => sim.turtle.forward(controlsDistance)));
-document.querySelector('#moveBackward').addEventListener('click', () => manualInput(() => sim.turtle.backward(controlsDistance)));
-
-document.querySelector('#turnLeft90').addEventListener('click', () => manualInput(() => sim.turtle.left(90)));
-document.querySelector('#turnRight90').addEventListener('click', () => manualInput(() => sim.turtle.right(90)));
-document.querySelector('#turnLeft45').addEventListener('click', () => manualInput(() => sim.turtle.left(45)));
-document.querySelector('#turnRight45').addEventListener('click', () => manualInput(() => sim.turtle.right(45)));
-
-document.querySelector('#penDown').addEventListener('click', () => manualInput(() => sim.turtle.penDown()));
-document.querySelector('#penUp').addEventListener('click', () => manualInput(() => sim.turtle.penUp()));
-
-document.querySelector('#lineWidthSmaller').addEventListener('click', (e) => {
-    if (sim.turtle.pen.width <= 1) {
+    if (button.localName !== 'button') {
         return;
     }
-    sim.turtle.pen.width--;
-});
 
-document.querySelector('#lineWidthLarger').addEventListener('click', (e) => {
-    sim.turtle.pen.width++;
-});
-
-document.querySelector('#controls').addEventListener('click', (e) => {
-    if (e.target.matches('button.color')) {
+    if (button.id === 'moveForward') {
+        manualInput(() => sim.turtle.forward(manualInputDistance));
+    } else if (button.id === 'moveBackward') {
+        manualInput(() => sim.turtle.backward(manualInputDistance));
+    } else if (button.id === 'turnLeft90') {
+        manualInput(() => sim.turtle.left(90));
+    } else if (button.id === 'turnRight90') {
+        manualInput(() => sim.turtle.right(90));
+    } else if (button.id === 'turnLeft45') {
+        manualInput(() => sim.turtle.left(45));
+    } else if (button.id === 'turnRight45') {
+        manualInput(() => sim.turtle.right(45));
+    } else if (button.id === 'penDown') {
+        manualInput(() => sim.turtle.penDown());
+    } else if (button.id === 'penUp') {
+        manualInput(() => sim.turtle.penUp());
+    } else if (button.id === 'lineWidthSmaller') {
+        if (sim.turtle.pen.width <= 1) {
+            return;
+        }
+        sim.turtle.pen.width--;
+    } else if (button.id === 'lineWidthLarger') {
+        sim.turtle.pen.width++;
+    } else if (button.id === 'undo') {
+        manualInput(() => sim.turtle.popState());
+    } else if (button.matches('.color')) {
         sim.turtle.pen.color = e.target.getAttribute('data-color');
+    } else {
+        alert('Warning: Unhandled controls button');
+        return;
     }
 });
 
@@ -92,10 +104,10 @@ window.addEventListener("keydown", (event) => {
 
     switch (event.key) {
         case 'ArrowUp':
-            manualInput(() => turtle.forward(controlsDistance));
+            manualInput(() => turtle.forward(manualInputDistance));
             break;
         case 'ArrowDown':
-            manualInput(() => turtle.backward(controlsDistance));
+            manualInput(() => turtle.backward(manualInputDistance));
             break;
         case 'ArrowLeft':
             manualInput(() => turtle.left(45));
@@ -115,24 +127,30 @@ window.addEventListener("keydown", (event) => {
     }
 });
 
-document.querySelector('#reset').addEventListener('click', () => {
-    const turtle = sim.turtle;
+document.querySelector('#actions').addEventListener('click', (e) => {
+    /** @type {HTMLElement} */
+    const button = e.target;
 
-    turtle.pos = startPos.clone();
-    turtle.angle = startAngle;
-    turtle.pen = startPen.clone();
+    if (button.localName !== 'button') {
+        return;
+    }
 
-    turtle.resetStates();
+    if (button.id === 'reset') {
+        const turtle = sim.turtle;
 
-    sim.init();
-});
+        turtle.pos = startPos.clone();
+        turtle.angle = startAngle;
+        turtle.pen = startPen.clone();
 
-document.querySelector('#replay').addEventListener('click', () => {
-    sim.init();
-});
+        turtle.resetStates();
 
-document.querySelector('#undo').addEventListener('click', () => {
-    manualInput(() => sim.turtle.popState());
+        sim.init();
+    } else if (button.id === 'replay') {
+        sim.init();
+    } else {
+        alert('Warning: Unhandled actions button');
+        return;
+    }
 });
 
 document.querySelector('#skipAnimation').addEventListener('change', (e) => {
@@ -145,31 +163,33 @@ document.querySelector('#speed').addEventListener('input', () => {
     sim.speed = getOption('speed');
 });
 
-document.querySelector('#koch').addEventListener('click', () => {
-    sim.turtle = new Turtle(new Point(250, 250), 0, new Pen());
+document.querySelector('#examples').addEventListener('click', (e) => {
+    /** @type {HTMLElement} */
+    const button = e.target;
 
-    const koch = new Koch(sim);
-    koch.schneeflocke(3, 300, 3);
+    if (button.localName !== 'button') {
+        return;
+    }
 
-    startExample();
-});
+    if (button.id === 'koch') {
+        sim.turtle = new Turtle(new Point(250, 250), 0, new Pen());
 
-document.querySelector('#dragon').addEventListener('click', () => {
-    sim.turtle = new Turtle(new Point(500, 250), 0, new Pen());
+        const koch = new Koch(sim);
+        koch.schneeflocke(3, 300, 3);
+    } else if (button.id === 'dragon') {
+        sim.turtle = new Turtle(new Point(500, 250), 0, new Pen());
 
-    const dragon = new Dragon(sim);
-    dragon.dragon(5, 12, true);
+        const dragon = new Dragon(sim);
+        dragon.dragon(5, 12, true);
+    } else if (button.id === 'tinker') {
+        sim.turtle = new Turtle(new Point(500, 200), startAngle, startPen);
 
-    startExample();
-});
-
-document.querySelector('#tinker').addEventListener('click', () => {
-    sim.turtle = new Turtle(new Point(500, 200), startAngle, startPen);
-
-    const tinker = new Tinker(sim);
-    tinker.tinker();
-
-    sim.init();
+        const tinker = new Tinker(sim);
+        tinker.tinker();
+    } else {
+        alert('Warning: Unhandled examples button');
+        return;
+    }
 
     startExample();
 });
