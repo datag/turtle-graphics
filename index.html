@@ -11,32 +11,74 @@
     <canvas id="simCanvas"></canvas>
 
     <div id="controls">
-        <button id="moveForward" title="Move forward">🠉</button>
-        <button id="moveBackward" title="Move backward">🠋</button>
-        <button id="turnLeft90" title="Turn left 90°">⭯</button>
-        <button id="turnRight90" title="Turn right 90°">⭮</button>
-        <button id="turnLeft45" title="Turn left 45°">↺</button>
-        <button id="turnRight45" title="Turn right 45°">↻</button>
+        <button id="moveForward" title="Move forward">
+            <svg class="icon"><use xlink:href="#icon-arrow-up"></use></svg>
+        </button>
+        <button id="moveBackward" title="Move backward">
+            <svg class="icon"><use xlink:href="#icon-arrow-down"></use></svg>
+        </button>
+        <button id="turnLeft90" title="Turn left 90°">
+            <svg class="icon"><use xlink:href="#icon-turn-left-90"></use></svg>
+        </button>
+        <button id="turnRight90" title="Turn right 90°">
+            <svg class="icon"><use xlink:href="#icon-turn-right-90"></use></svg>
+        </button>
+        <button id="turnLeft45" title="Turn left 45°">
+            <svg class="icon"><use xlink:href="#icon-turn-left-45"></use></svg>
+        </button>
+        <button id="turnRight45" title="Turn right 45°">
+            <svg class="icon"><use xlink:href="#icon-turn-right-45"></use></svg>
+        </button>
 
-        <button id="penDown" title="Pen down">✎</button>
-        <button id="penUp" title="Pen up">✎</button>
-        <button id="lineWidthSmaller" title="Line width smaller">▪</button>
-        <button id="lineWidthLarger" title="Line width larger">◼</button>
-        <button id="colorBlack" title="Color black" data-color="black" class="color">⚫</button>
-        <button id="colorRed" title="Color red" data-color="red" class="color">🔴</button>
-        <button id="colorGreen" title="Color green" data-color="green" class="color">🟢</button>
-        <button id="colorBlue" title="Color blue" data-color="blue" class="color">🔵</button>
-        <button id="colorOrange" title="Color orange" data-color="orange" class="color">🟠</button>
-        <button id="colorYellow" title="Color yellow" data-color="yellow" class="color">🟡</button>
-        <button id="colorPurple" title="Color purple" data-color="purple" class="color">🟣</button>
-        <button id="colorBrown" title="Color brown" data-color="brown" class="color">🟤</button>
+        <button id="penDown" title="Pen down">
+            <svg class="icon"><use xlink:href="#icon-pencil"></use></svg>
+        </button>
+        <button id="penUp" title="Pen up">
+            <svg class="icon"><use xlink:href="#icon-pencil-crossed"></use></svg>
+        </button>
+        <button id="lineWidthSmaller" title="Line width smaller">
+            <svg class="icon"><use xlink:href="#icon-smaller"></use></svg>
+        </button>
+        <button id="lineWidthLarger" title="Line width larger">
+            <svg class="icon"><use xlink:href="#icon-larger"></use></svg>
+        </button>
+        <button id="colorBlack" title="Color black" data-color="black" class="color">
+            <svg class="icon" style="color: black;"><use xlink:href="#icon-circle-solid"></use></svg>
+        </button>
+        <button id="colorRed" title="Color red" data-color="red" class="color">
+            <svg class="icon" style="color: red;"><use xlink:href="#icon-circle-solid"></use></svg>
+        </button>
+        <button id="colorGreen" title="Color green" data-color="green" class="color">
+            <svg class="icon" style="color: green;"><use xlink:href="#icon-circle-solid"></use></svg>
+        </button>
+        <button id="colorBlue" title="Color blue" data-color="blue" class="color">
+            <svg class="icon" style="color: blue;"><use xlink:href="#icon-circle-solid"></use></svg>
+        </button>
+        <button id="colorOrange" title="Color orange" data-color="orange" class="color">
+            <svg class="icon" style="color: orange;"><use xlink:href="#icon-circle-solid"></use></svg>
+        </button>
+        <button id="colorYellow" title="Color yellow" data-color="yellow" class="color">
+            <svg class="icon" style="color: yellow;"><use xlink:href="#icon-circle-solid"></use></svg>
+        </button>
+        <button id="colorPurple" title="Color purple" data-color="purple" class="color">
+            <svg class="icon" style="color: purple;"><use xlink:href="#icon-circle-solid"></use></svg>
+        </button>
+        <button id="colorBrown" title="Color brown" data-color="brown" class="color">
+            <svg class="icon" style="color: brown;"><use xlink:href="#icon-circle-solid"></use></svg>
+        </button>
 
-        <button id="undo" title="Undo last action">↶</button>
+        <button id="undo" title="Undo last action">
+            <svg class="icon"><use xlink:href="#icon-backspace"></use></svg>
+        </button>
     </div>
     <hr>
     <div id="actions">
-        <button id="reset">Reset</button>
-        <button id="replay">Replay</button>
+        <button id="reset" title="Reset">
+            <svg class="icon"><use xlink:href="#icon-arrow-path"></use></svg>
+        </button>
+        <button id="replay" title="Replay">
+            <svg class="icon"><use xlink:href="#icon-play"></use></svg>
+        </button>
         <label><input id="skipAnimation" type="checkbox" /> Skip animation</label> |
         <label>Speed: <input type="range" id="speed" min="0.0" max="1.0" value="0.5" step="0.01" /></label>
     </div>

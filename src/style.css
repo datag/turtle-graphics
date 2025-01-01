@@ -19,60 +19,71 @@ body {
     height: 100vh;
 }
 
+.icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
 #simCanvas {
     margin: 10px;
     outline: solid 1px lightgray;
 }
 
-#controls {
+#controls,
+#actions,
+#examples {
     margin: 10px 20px;
     display: flex;
-    gap: 1ch;
+    gap: 0.75ch;
 
     > button {
-        display: inline-block;
-        font-size: 30px;
-        width: 50px;
-        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border: 1px solid darkgray;
         border-radius: 5px;
-        background-color: #7fd8a3;
         cursor: pointer;
+        transition: background-color 0.2s ease;
 
-        &#penUp {
-            text-decoration: line-through red;
+        svg {
+            pointer-events: none;
+        }
+    }
+}
+
+
+#controls {
+    > button {
+        background-color: #7fd8a3;
+        height: 45px;
+        width: 45px;
+
+        &:hover {
+            background-color: #8beeb3;
         }
     }
 }
 
 #actions {
-    margin: 10px 20px;
-    display: flex;
-    gap: 1ch;
-
     > button {
-        display: inline-block;
-        font-size: 20px;
-        border: 1px solid darkgray;
-        border-radius: 5px;
         background-color: lightgray;
-        cursor: pointer;
+        height: 35px;
+        width: 35px;
+
+        &:hover {
+            background-color: #f0f0f0;
+        }
     }
 }
 
 #examples {
-    margin: 10px 20px;
-    display: flex;
-    gap: 1ch;
-
     > button {
-        display: inline-block;
-        font-size: 20px;
-        border: 1px solid darkgray;
-        border-radius: 5px;
-        background-color: lightgray;
-        cursor: pointer;
-
         background-color: lightblue;
+        height: 30px;
+
+        &:hover {
+            background-color: rgb(185, 232, 248);
+        }
     }
 }

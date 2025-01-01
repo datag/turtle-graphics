@@ -1,4 +1,6 @@
 import './style.css';
+import svgDefs from './icons.svg';
+
 import { TurtleGraphics, Turtle, Pen, Point } from './turtle.js';
 import { Koch } from './examples/koch.js';
 import { Dragon } from './examples/dragon.js';
@@ -54,11 +56,19 @@ function startExample() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Inject SVG definitions
+    const container = document.createElement('div');
+    container.style.display = 'none';
+    container.innerHTML = svgDefs;
+    document.body.appendChild(container);
+});
+
 document.querySelector('#controls').addEventListener('click', (e) => {
     /** @type {HTMLElement} */
-    const button = e.target;
+    const button = e.target.closest('button');
 
-    if (button.localName !== 'button') {
+    if (!button) {
         return;
     }
 
@@ -129,9 +139,9 @@ window.addEventListener("keydown", (event) => {
 
 document.querySelector('#actions').addEventListener('click', (e) => {
     /** @type {HTMLElement} */
-    const button = e.target;
+    const button = e.target.closest('button');
 
-    if (button.localName !== 'button') {
+    if (!button) {
         return;
     }
 
@@ -165,9 +175,9 @@ document.querySelector('#speed').addEventListener('input', () => {
 
 document.querySelector('#examples').addEventListener('click', (e) => {
     /** @type {HTMLElement} */
-    const button = e.target;
+    const button = e.target.closest('button');
 
-    if (button.localName !== 'button') {
+    if (!button) {
         return;
     }
 
