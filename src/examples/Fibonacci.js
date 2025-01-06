@@ -1,5 +1,5 @@
-import { Example } from '../example.js';
-import { Turtle, Point, Pen } from '../turtle.js';
+import { Example } from '../Example.js';
+import { Turtle, Point, Pen } from '../TurtleGraphics.js';
 
 export class Fibonacci extends Example {
     static info() {

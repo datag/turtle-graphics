@@ -1,4 +1,4 @@
-import { Example } from "./example";
+import { Example } from "./Example.js";
 
 export class ExampleLoader {
     async load() {

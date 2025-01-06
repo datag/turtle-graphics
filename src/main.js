@@ -1,8 +1,8 @@
 import './style.css';
 import svgDefs from './icons.svg';
 
-import { TurtleGraphics, Turtle, Pen, Point } from './turtle.js';
-import { ExampleLoader } from './example-loader.js';
+import { TurtleGraphics, Turtle, Pen, Point } from './TurtleGraphics.js';
+import { ExampleLoader } from './ExampleLoader.js';
 
 const canvas = document.querySelector('#simCanvas');
 

@@ -1,4 +1,4 @@
-import { TurtleGraphics } from './turtle.js';
+import { TurtleGraphics } from './TurtleGraphics.js';
 
 export class Example {
     constructor(sim) {
