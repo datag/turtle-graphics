@@ -4,8 +4,8 @@ import { Turtle, Point, Pen } from '../turtle.js';
 export class Tinker extends Example {
     static info() {
         return {
-            id: 'tinker',
-            name: 'Tinker',
+            id: 'tinker-01',
+            name: 'Tinker-01',
         }
     }
 
