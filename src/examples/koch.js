@@ -1,33 +1,42 @@
-import { TurtleGraphics } from '../turtle.js';
+import { Example } from '../example.js';
+import { Turtle, Point, Pen } from '../turtle.js';
 
-export class Koch {
-    constructor(sim) {
-        /** @type TurtleGraphics */
-        this.sim = sim;
+export class Koch extends Example {
+    static info() {
+        return {
+            id: 'koch',
+            name: 'Koch snowflake',
+        }
     }
 
     static colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+
+    start() {
+        this.sim.turtle = new Turtle(new Point(250, 250), 0, new Pen());
+
+        this.snowflake(3, 300, 3);
+    }
 
     /**
      * @param {number} length Distance
      * @param {*} d Iterations
      */
-    kochkurve(length, d) {
+    kochcurve(length, d) {
         const turtle = this.sim.turtle;
 
         if (d === 0) {
             turtle.forward(length);
         } else {
-            this.kochkurve(length / 3, d - 1);
+            this.kochcurve(length / 3, d - 1);
 
             turtle.left(60);
-            this.kochkurve(length / 3, d - 1);
+            this.kochcurve(length / 3, d - 1);
 
             turtle.right(120);
-            this.kochkurve(length / 3, d - 1);
+            this.kochcurve(length / 3, d - 1);
 
             turtle.left(60);
-            this.kochkurve(length / 3, d - 1);
+            this.kochcurve(length / 3, d - 1);
         }
     }
 
@@ -36,13 +45,13 @@ export class Koch {
      * @param {number} length Distance
      * @param {number} d Iterations
      */
-    schneeflocke(sides, length, d) {
+    snowflake(sides, length, d) {
         const turtle = this.sim.turtle;
 
         for (let i = 0; i < sides; i++) {
             turtle.pen.color = Koch.colors[i % Koch.colors.length];
 
-            this.kochkurve(length, d);
+            this.kochcurve(length, d);
             turtle.right(360 / sides);
         }
     }

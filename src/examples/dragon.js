@@ -1,12 +1,21 @@
-import { TurtleGraphics } from '../turtle.js';
+import { Example } from '../example.js';
+import { Turtle, Point, Pen } from '../turtle.js';
 
-export class Dragon {
-    constructor(sim) {
-        /** @type TurtleGraphics */
-        this.sim = sim;
+export class Dragon extends Example {
+    static info() {
+        return {
+            id: 'dragon',
+            name: 'Dragon curve',
+        }
     }
 
     static colors = ['#4169e1', '#a7c7e7'];
+
+    start() {
+        this.sim.turtle = new Turtle(new Point(500, 250), 0, new Pen());
+
+        this.dragon(5, 12, true);
+    }
 
     /**
      * @param {number} s Distance

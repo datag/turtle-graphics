@@ -1,9 +1,18 @@
-import { TurtleGraphics } from '../turtle.js';
+import { Example } from '../example.js';
+import { Turtle, Point, Pen } from '../turtle.js';
 
-export class Tinker {
-    constructor(sim) {
-        /** @type TurtleGraphics */
-        this.sim = sim;
+export class Tinker extends Example {
+    static info() {
+        return {
+            id: 'tinker',
+            name: 'Tinker',
+        }
+    }
+
+    start() {
+        this.sim.turtle = new Turtle(new Point(500, 200), 0, new Pen());
+
+        this.tinker();
     }
 
     tinker() {

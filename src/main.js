@@ -2,9 +2,7 @@ import './style.css';
 import svgDefs from './icons.svg';
 
 import { TurtleGraphics, Turtle, Pen, Point } from './turtle.js';
-import { Koch } from './examples/koch.js';
-import { Dragon } from './examples/dragon.js';
-import { Tinker } from './examples/tinker.js';
+import { ExampleLoader } from './example-loader.js';
 
 const canvas = document.querySelector('#simCanvas');
 
@@ -25,6 +23,51 @@ sim.mainLoop(performance.now());
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+const exampleLoader = new ExampleLoader();
+(async () => {
+    try {
+        const examples = await exampleLoader.load();
+        exampleLoader.addButtons(examples, document.querySelector('#examples'));
+
+        document.querySelector('#examples').addEventListener('click', (e) => {
+            /** @type {HTMLElement} */
+            const button = e.target.closest('button');
+
+            if (!button) {
+                return;
+            }
+
+            const exampleDef = examples[button.id];
+            if (exampleDef === undefined) {
+                throw new Error(`Button with ID ${button.id} does not map to a loaded example`);
+            }
+
+            const exampleClass = exampleDef.class;
+            const example = new exampleClass(sim);
+            example.start();
+
+            sim.init();
+
+            sim.speed = getOption('speed');
+
+            if (getOption('skipAnimation')) {
+                sim.turtle.toLastState();
+            }
+        });
+
+        // DEBUG
+        const runExample = null; // 'fibonacci';
+        if (runExample !== null) {
+            document.querySelector('#skipAnimation').checked = true;
+            document.querySelector('#'+runExample).click();
+        }
+    } catch (error) {
+        console.error("Error loading examples:", error);
+    }
+})();
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 function getOption(name) {
     switch (name) {
         case 'skipAnimation':
@@ -42,16 +85,6 @@ function manualInput(closure) {
     }
     closure();
     sim.turtle.toLastState();
-}
-
-function startExample() {
-    sim.init();
-
-    sim.speed = getOption('speed');
-
-    if (getOption('skipAnimation')) {
-        sim.turtle.toLastState();
-    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -171,35 +204,4 @@ document.querySelector('#skipAnimation').addEventListener('change', (e) => {
 
 document.querySelector('#speed').addEventListener('input', () => {
     sim.speed = getOption('speed');
-});
-
-document.querySelector('#examples').addEventListener('click', (e) => {
-    /** @type {HTMLElement} */
-    const button = e.target.closest('button');
-
-    if (!button) {
-        return;
-    }
-
-    if (button.id === 'koch') {
-        sim.turtle = new Turtle(new Point(250, 250), 0, new Pen());
-
-        const koch = new Koch(sim);
-        koch.schneeflocke(3, 300, 3);
-    } else if (button.id === 'dragon') {
-        sim.turtle = new Turtle(new Point(500, 250), 0, new Pen());
-
-        const dragon = new Dragon(sim);
-        dragon.dragon(5, 12, true);
-    } else if (button.id === 'tinker') {
-        sim.turtle = new Turtle(new Point(500, 200), startAngle, startPen);
-
-        const tinker = new Tinker(sim);
-        tinker.tinker();
-    } else {
-        alert('Warning: Unhandled examples button');
-        return;
-    }
-
-    startExample();
 });
