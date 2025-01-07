@@ -3,15 +3,13 @@
 Tinkering implementation of [turtle graphics](https://en.wikipedia.org/wiki/Turtle_graphics)
 for educational purpose.
 
-## Demo
+## Hosted App
 
-[Try it out 🐢](https://datag.github.io/turtle-graphics/)
+[Try It Out 🐢](https://datag.github.io/turtle-graphics/)
 
 ## Examples
 
-* [Koch snowflake](./src/examples/koch.js) ([Wikipedia](https://en.wikipedia.org/wiki/Koch_snowflake))
-* [Dragon curve](./src/examples/dragon.js) ([Wikipedia](https://en.wikipedia.org/wiki/Dragon_curve))
-* [Tinker](./src/examples/tinker.js) (Your starting point)
+Have a look at [src/examples](./src/examples).
 
 ## Manual control
 
